@@ -26,7 +26,9 @@ public class Battleship {
         */
     public static void main(String[] args) {
         
-        Executive gameHandler = new Executive();
-        gameHandler.run();
+        //Executive gameHandler = new Executive();
+        //gameHandler.run();
+        Run gameHandler = new Run();
+        gameHandler.letsPlay();
     }
 }

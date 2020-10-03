@@ -48,6 +48,13 @@ public class Board {
 	int ySize;
 
 	char board_marker;
+	ship[] theShips;
+	int numberOfShips;
+	boolean[] hasSunk;
+	int sunkCounter; 
+	String name;
+	int lastShipHit = 0;
+	
 
 	/**
 	 * Must have valid dimensions and board marker
@@ -67,8 +74,9 @@ public class Board {
 	 * @param x              Int
 	 * @param y              Int
 	 * @param t_board_marker Char
+	 * @param numberOfShips Int
 	 */
-	public Board(int x, int y, char t_board_marker) {
+	public Board(int x, int y, char t_board_marker, int numberOfShips, String theName) {
 		this.xSize = 0;
 		this.ySize = 0;
 		this.board_marker = '\0';
@@ -84,6 +92,20 @@ public class Board {
 				this.map[i][k] = this.board_marker;
 			}
 		}
+
+		this.numberOfShips = numberOfShips;
+		this.theShips = new ship[numberOfShips];
+		for(int i = 0; i < numberOfShips; i++) {
+			theShips[i] = new ship(i);
+		}
+
+		this.hasSunk = new boolean[numberOfShips];
+		for(int i = 0; i < numberOfShips; i++) {
+			this.hasSunk[i] = false;
+		}
+		this.sunkCounter = 0;
+
+		this.name = theName;
 	}
 
 	/**
@@ -151,8 +173,8 @@ public class Board {
 	 *
 	 * @return Board
 	 */
-	public Board getCopyBoard() {
-		Board copy = new Board(this.xSize, this.ySize, this.board_marker);
+	public Board getCopyBoard(Board copy) {
+		copy = new Board(this.xSize, this.ySize, this.board_marker, this.numberOfShips, this.name);
 		for (int i = 0; i < this.ySize; i++) {
 			for (int k = 0; k < this.xSize; k++) {
 				copy.addMarker(this.map[i][k], i, k);
@@ -160,6 +182,13 @@ public class Board {
 		}
 		return copy;
 	}
+
+
+	//copy constructor
+	Board(Board c) {
+		getCopyBoard(c);
+	}
+
 
 	/**
 	 * This returns the X size of the array
@@ -223,7 +252,7 @@ public class Board {
 	 * @param y      Int
 	 */
 	public void addMarker(char marker, int x, int y) {
-		this.map[y][x] = marker;
+		this.map[x][y] = marker;
 	}
 
 	/**
@@ -246,6 +275,56 @@ public class Board {
 	 * @return char
 	 */
 	public char getMarker(int x, int y) {
-		return this.map[y][x];
+		return this.map[x][y];
+	}
+
+	public void setShipCoordinates(int shipNum, int row, int col) {
+		String Pair = Integer.toString(row) + Integer.toString(col);
+		theShips[shipNum].setShipCors(Pair);
+	}
+
+	public int getNumberOfShips() {
+		return numberOfShips;
+	}
+
+	private boolean fleetSunk(ship[] sp, int num){
+		if(sp[num - 1].isSink() == true && num > 0){
+			return fleetSunk(sp, num - 1);
+		} else if (sp[num - 1].isSink() == false && num > 0){
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public boolean fleetHasSunk(){
+		return fleetSunk(theShips, numberOfShips);
+	}
+
+	public boolean isEq(Board playerBoard) {
+		return this.name == playerBoard.name;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public boolean hitShipBool(int row, int col){
+		String coordinates = Integer.toString(row) + Integer.toString(col);
+		for(int i = 0; i < numberOfShips; i++){
+			if(theShips[i].shipHit(coordinates)){
+				lastShipHit = i + 1;
+				return true;
+			} 
+		}
+		return false;
+	}
+
+	public void setlastShipHit(int num){
+		lastShipHit = num;
+	}
+
+	public int getlastShipHit(){
+		return lastShipHit;
 	}
 }

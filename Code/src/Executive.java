@@ -58,7 +58,7 @@ import java.lang.IllegalArgumentException;
  */
 public class Executive {
 
-  private Scanner consoleInput = new Scanner(System.in);
+  private Scanner consoleInput = new Scanner(System.in); //reads user input
 
   private char[] coordinateLetters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' };
 
@@ -117,14 +117,14 @@ public class Executive {
    * @post: The menu will be displayed
    *
    */
-  public void postMenu() {
+/*  public void postMenu() {
     System.out.println("Menu:");
     System.out.println("Type '1' to choose where to attack.");
     System.out.println("Type '2' to review your board.");
     System.out.println("Type '3' to view your attack history.");
     System.out.println("Type '4' to forfeit the match.");
     System.out.println("CHOICE:");
-  }
+  }*/
 
   /**
    *
@@ -136,13 +136,13 @@ public class Executive {
    *         message to the console
    *
    */
-  public boolean validateShipNum(int num) {
+/*  public boolean validateShipNum(int num) {
     if (num > 5 || num < 1) {
       System.out.println("Please input an int from 1 to 5.");
       return (false);
     }
     return (true);
-  }
+  }*/
 
   /**
    *
