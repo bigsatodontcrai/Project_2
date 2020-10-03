@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class ship {
     private int size;
     private boolean[] shipArray;
-    HashMap<coorpair, Integer> pair = new HashMap<coorpair, Integer>();
+    private HashMap<String, Integer> pair = new HashMap<String, Integer>();
     
     private int counter;
 
@@ -20,7 +20,7 @@ public class ship {
         
     }
 
-    public boolean shipHit(coorpair coordinates) {
+    public boolean shipHit(String coordinates) {
         if(pair.containsKey(coordinates)) {
             if(shipArray[pair.get(coordinates)] == false) {
                 shipArray[pair.get(coordinates)] = true;
@@ -59,7 +59,7 @@ public class ship {
         return shipSunkRecursive(shipArray, size);
     }
 
-    public void setShipCors(coorpair coordinates) {
+    public void setShipCors(String coordinates) {
         for(int i = 0; i < size; i++) {
             pair.put(coordinates, i);
         }

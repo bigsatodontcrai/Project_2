@@ -66,7 +66,7 @@ public class BoardPrinterWrapper{
     this.indexed = t_indexed;
 
     this.g = t_g;
-    this.ui = new Board(g.getXSize() + this.indexOffset + 2 * this.xOffset, g.getYSize() + 2 * this.indexOffset + this.yOffset, this.board_marker, 0);
+    this.ui = new Board(g.getXSize() + this.indexOffset + 2 * this.xOffset, g.getYSize() + 2 * this.indexOffset + this.yOffset, this.board_marker, g.getNumberOfShips(), g.getName());
 
   }
 
@@ -162,7 +162,7 @@ public class BoardPrinterWrapper{
   * @return Board offsetBoard
   */
   public Board getCopyBoard(Board copy){
-    copy = new Board(ui.getXSize(), ui.getYSize(), this.board_marker, copy.getNumberOfShips());
+    copy = new Board(ui.getXSize(), ui.getYSize(), this.board_marker, copy.getNumberOfShips(), copy.getName());
     for(int i = 0; i < ui.getYSize(); i++){
       for(int k = 0; k < ui.getXSize(); k++){
         copy.addMarker(ui.getMarker(k , i), k, i);

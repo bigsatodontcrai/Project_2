@@ -10,8 +10,7 @@ design decision. This way it'll be a bit more modular even internally.
 
 public class Utility {
     public static Scanner consoleInput = new Scanner(System.in);
-    private char[] coordinateLetters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'};
-    private void clearTerminal() {
+    public static void clearTerminal() {
         for (int i = 0; i < 50; i++) {
             System.out.println("");
         }
@@ -27,7 +26,7 @@ public class Utility {
      *         message to the console
      *
      */
-    private boolean validateShipNum(int num) {
+    public static boolean validateShipNum(int num) {
       if (num > 5 || num < 1) {
         System.out.println("Please input an int from 1 to 5.");
         return (false);
@@ -42,20 +41,14 @@ public class Utility {
      * @post: The menu will be displayed
      *
      */  
-    private void printMenu() {
+    public static void printMenu() {
+
       System.out.println("Menu:");
       System.out.println("1) Attack!!");
-      System.out.println("2) See your board");//do we need this if the board is printing more often
-      System.out.println("3) Attack history");
-      System.out.println("4) Forfeit the match");
+      //System.out.println("2) See your board");//do we need this if the board is printing more often
+      //System.out.println("2) Attack history");
+      System.out.println("2) Forfeit the match");
       System.out.println("CHOICE:");
-    }
-    private int safelyGetIntInput() {
-
-    }
-    public class safelyGetCoordinates {
-
-
     }
 
 
@@ -65,15 +58,46 @@ public class Utility {
     }
 
 
-    private void getInput() {
-        //safelyGetCoordinates.getCoordinates();
+    private void getInput(safelyGetCoordinates input) {
         //input.getCoordinates();
+        chooseShipNum();
+        input.getCoordinates();
     }
 
     private void chooseShipNum() {
+      //boolean invalidInput = true;
+      System.out.println("Welcome to the game of Battleship!");
+      System.out.println("How many ships (per person) would you like to play with (1-5)?");
+      int numberOfShips = 0;
+      do {
+        numberOfShips = getUserInput.getUserNumber(consoleInput);
+      }while (validateShipNum(numberOfShips) == false);
+    }
+    public void runUtility(safelyGetCoordinates input){
+      getInput(input);
 
     }
-    public void runUtility(){
 
+    public static boolean getHori(String next){
+      
+      boolean hori = false;
+      boolean notValid = true;
+      while(notValid){
+        if (next.contains("H")) {
+          hori = true;
+          notValid = false;
+        } else if (next.contains("V")) {
+          hori = false;
+          notValid = false;
+        } 
+      }
+      return hori;
     }
+
+    public static void printStart(){
+      System.out.println("Let's play Battleship!");
+      System.out.println("Choose between two player OR choose AI Difficulty:");
+    }
+
+    
 }
