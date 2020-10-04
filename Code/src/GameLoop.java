@@ -1,6 +1,4 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
-//import java.lang.IllegalArgumentException;
 
 public class GameLoop {
     private Board player1Board;
@@ -10,23 +8,21 @@ public class GameLoop {
     private getUserInput player1UI;
     private getUserInput player2UI;
     private Scanner consoleInput = new Scanner(System.in);
-    private Utility Tools;
     private safelyGetCoordinates getCoor;
-    private int choice = 0;
     private boolean[] playerWon = {false, false};
     private PlaceShip player1place;
     private PlaceShip player2place; 
+    
     
     public GameLoop() {
         this.player1UI = new getUserInput(1);
         this.player2UI = new getUserInput(2);
         this.getCoor = new safelyGetCoordinates();
-        this.Tools = new Utility();
     }
 
     public gameLogicInterface Init(){
         Utility.printStart();
-        AIEasy Easy = new AIEasy();
+        AIEasy Easy;
         AIMedium Medium;
         AIHard Hard = new AIHard();
         System.out.println("Type 1 for player, 2 for AI");
@@ -51,27 +47,34 @@ public class GameLoop {
         player1Printer = new BoardPrinterWrapper(player1Board, 's', '~', true);
         player1place = new PlaceShip(player1Board);
         getCoor.placeShipLoop(player1Board, player1Printer, player1place);
+        
 
         if(isNotAI){
             System.out.println("Player 2 place ships:");
             num2 = player2UI.runInterface(player2Board, consoleInput);
-            player2Board = new Board(9, 9, '~', num2, "player1Board");
-            player2Printer = new BoardPrinterWrapper(player2Board, 's', '~', true);
             player2place = new PlaceShip(player2Board);
             getCoor.placeShipLoop(player2Board, player2Printer, player2place);
+            getCoor.setRadar(player1Board, player2Board);
+            player2Board = new Board(9, 9, '~', num2, "player2Board");
+            player2Printer = new BoardPrinterWrapper(player2Board, 's', '~', true);
         } else {
-            player2Board = new Board(9, 9, '~', num2, "player1Board");
+            num2 = PlaceAIShips.determineShips();
+            player2Board = new Board(9, 9, '~', num2, "player2Board");
             player2Printer = new BoardPrinterWrapper(player2Board, 's', '~', true);
             switch(yourChoice){
                 case "easy":
+                Easy = new AIEasy(player2Board);
                 Easy.placeShipLoop(player2Board, player2Printer, player2place);
+                getCoor.setRadar(player2Board);
                 return Easy;
                 case "medium":
                 Medium = new AIMedium(player1Board);
                 Medium.placeShipLoop(player2Board, player2Printer, player2place);
+                getCoor.setRadar(player2Board);
                 return Medium;
                 case "hard":
                 Hard.placeShipLoop(player2Board, player2Printer, player2place);
+                getCoor.setRadar(player2Board);
                 return Hard;
             }
         } return getCoor;
@@ -80,18 +83,18 @@ public class GameLoop {
 
     
 
-    public void Play(gameLogicInterface getCoorP, gameLogicInterface getCoorO){
+    public void Play(gameLogicInterface getCoorPlayer, gameLogicInterface getCoorOpponent){
         do
         {
             System.out.println("Player 1 turn");
-            if(!getCoorP.Loop(player1Board, player2Board, player1UI, player1Printer, player2Printer)){
+            if(!getCoorPlayer.Loop(player1Board, player2Board, player1UI, player1Printer, player2Printer)){
                 break;//for forfeit
             }
             System.out.println("Player 2 turn");
-            if (!getCoorO.Loop(player1Board, player2Board, player1UI, player1Printer, player2Printer)) {
+            if (!getCoorOpponent.Loop(player2Board, player1Board, player1UI, player1Printer, player2Printer)) {
                 break;
             }
-            playerWon[0] = player1Board.fleetHasSunk();
+            playerWon[0] = player2Board.fleetHasSunk();
             playerWon[1] = player1Board.fleetHasSunk();
         } while (!playerWon[0] && !playerWon[1]);
         if (playerWon[0]) {
