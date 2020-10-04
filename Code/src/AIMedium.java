@@ -3,13 +3,19 @@ import java.util.Random;
 public class AIMedium implements gameLogicInterface{
     private int row = 0;
     private int col = 0;
+    private int x;
+    private int y;
     private Board BoardCopy;//this is going to keep track what's been visited
     private Board BoardOrig;//the actual board pointer
     Random rand = new Random();//RNG for placing ships and for firing initially
+    private BrokenRadar broken; //= new BrokenRadar(BoardOrig);
 
     AIMedium(Board orig){
-        this.BoardCopy = orig.getCopyBoard(orig);
+        
         this.BoardOrig = orig;
+        this.x = orig.getXSize();
+        this.y = orig.getYSize();
+        broken = new BrokenRadar(BoardOrig);
     }
 
     private void markHit(int row, int col){
@@ -20,6 +26,7 @@ public class AIMedium implements gameLogicInterface{
 
     private void markOrig(int row, int col){
         BoardOrig.addMarker('x', row, col);
+        BoardOrig.hitShipBool(broken.convertCoor(row, col));
     }
     private void markMiss(int row, int col) {
         BoardOrig.addMarker('o', row, col);
@@ -33,9 +40,21 @@ public class AIMedium implements gameLogicInterface{
     }
     
     private boolean markRandom(int size) {
-        row = rand.nextInt(size);
-        col = rand.nextInt(size);
+        //row = rand.nextInt(size);
+        //col = rand.nextInt(size);
+        do {
+            row = rand.nextInt(size);
+            col = rand.nextInt(size);
+        } while(!origHit(row, col, 'o'));
         return isHit(row, col, 's');
+    }
+
+    private boolean origHit(int row, int col, char letter) {
+        if(BoardOrig.getMarker(row, col) == letter) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean isHit(int row, int col, char letter) {
@@ -47,7 +66,10 @@ public class AIMedium implements gameLogicInterface{
     }
 
     private boolean checkUp(int row, int col, char letter){
-        if(isHit(row - 1, col, letter)){
+        if(row < 0 || col < 0 || row > x || col > y){
+            return false;
+        }
+        else if(isHit(row - 1, col, letter)){
             return true; 
         } else {
             return false;
@@ -55,7 +77,10 @@ public class AIMedium implements gameLogicInterface{
     }
 
     private boolean checkDown(int row, int col, char letter){
-        if (isHit(row + 1, col, letter)) {
+        if(row < 0 || col < 0 || row > x || col > y){
+            return false;
+        }
+        else if (isHit(row + 1, col, letter)) {
             return true;
         } else {
             return false;
@@ -63,7 +88,10 @@ public class AIMedium implements gameLogicInterface{
     }
 
     private boolean checkRight(int row, int col, char letter){
-        if (isHit(row, col + 1, letter)) {
+        if(row < 0 || col < 0 || row > x || col > y){
+            return false;
+        }
+        else if (isHit(row, col + 1, letter)) {
             return true;
         } else {
             return false;
@@ -71,7 +99,10 @@ public class AIMedium implements gameLogicInterface{
     }
 
     private boolean checkLeft(int row, int col, char letter){
-        if (isHit(row, col - 1, letter)) {
+        if(row < 0 || col < 0 || row > x || col > y){
+            return false;
+        }
+        else if (isHit(row, col - 1, letter)) {
             return true;
         } else {
             return false;
@@ -82,18 +113,18 @@ public class AIMedium implements gameLogicInterface{
         
         if(checkUp(row, col, 's')){
             markHit(row - 1, col);
-            return backTrack(row - 1, col);
+            return solveBoard(row - 1, col);
         } else if (checkDown(row, col, 's')){
             markHit(row + 1, col);
-            return backTrack(row + 1, col);
+            return solveBoard(row + 1, col);
         } else if (checkRight(row, col, 's')){
             markHit(row, col - 1);
-            return backTrack(row, col - 1);
+            return solveBoard(row, col - 1);
         } else if (checkLeft(row, col, 's')){
             markHit(row, col + 1);
-            return backTrack(row, col - 1);
+            return solveBoard(row, col - 1);
         } 
-        unMark(row, col);
+        unMarkCopy(row, col);
         return false;
     }
 
@@ -126,8 +157,7 @@ public class AIMedium implements gameLogicInterface{
         int choice = 0;
         if(playerBoard.fleetHasSunk()){
             choice = 10000;
-        }
-        else {
+        } else {
             choice = rand.nextInt(10000);
         }
         if(choice < 9999){
@@ -147,20 +177,18 @@ public class AIMedium implements gameLogicInterface{
             solveBoard(row, col);
             if(backTrack(row, col)){
                 markOrig(row, col);
-            } else {
-                markMiss(row, col);
-            }
+            } 
         } else {
             if(markRandom(opponent.getXSize())){
                 markHit(row, col);
                 markOrig(row, col);
-            } else {
+            } else if(BoardOrig.getMarker(row, col) == '~'){
                 markMiss(row, col);
 
             }
         }
-        opboard.print(true);
-        playerboard.print(true);
+        opboard.print(false);
+        playerboard.print(false);
         
     }
 
@@ -174,6 +202,8 @@ public class AIMedium implements gameLogicInterface{
 
     public void placeShipLoop(Board playerBoard, BoardPrinterWrapper playerWrapper, PlaceShip placeIt) {
         PlaceAIShips.placeAI(playerBoard, playerWrapper, placeIt);
+        this.BoardCopy = new Board(x, y, '~', BoardOrig.getNumberOfShips(), "AIMediumCopy");
+        this.BoardCopy.setMapByCopy(BoardOrig);
 
     }
 }

@@ -34,27 +34,40 @@ public class PlaceShip {
     }*/
 
     private boolean placeIterative(int row, int col, int size) {
+        boolean[] check = new boolean[size];
         if(isHori) {
             for (int i = 0; i < size; i++) {
                 if (!CollisionHandler.check(board, 's', row + i, col)) {
-                    board.addMarker('s', row + i, col);
+                    check[i] = true;
                 } else {
                     System.out.println("Try a different coordinate");
                     return false;
+                }
+            }
+            for (int i = 0; i < size; i++){
+                if (check[i]){
+                    board.addMarker('s', row + i, col);
+                    board.setShipCoordinates(size - 1, row + 1 + i, col, i);
                 }
             }
             return true;
         } else {
             for (int i = 0; i < size; i++) {
                 if (!CollisionHandler.check(board, 's', row, col + i)) {
-                    board.addMarker('s', row, col + i);
+                    check[i] = true;
                 } else {
                     System.out.println("Try a different coordinate");
                     return false;
                 }
             }
-            return true;
-        }
+            for (int i = 0; i < size; i++){
+                if (check[i]){
+                    board.addMarker('s', row, col + i);
+                    board.setShipCoordinates(size - 1, row + 1, col + i, i);
+                }
+            }
+         return true;
+       }
         
     }
     

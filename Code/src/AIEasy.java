@@ -21,7 +21,7 @@ public class AIEasy implements gameLogicInterface {
               if(!playerBoard.fleetHasSunk())
               {
                 markBoard(other, player2Printer, player1Printer);
-                return true
+                return true;
               }else
               {
                 return false;
@@ -66,7 +66,7 @@ public class AIEasy implements gameLogicInterface {
             markMiss(row, col);
         }
       }
-      opbaord.print(true);
+      opboard.print(true);
       playerboard.print(true);
     }
 
