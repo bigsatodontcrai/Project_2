@@ -13,9 +13,9 @@ public class AIEasy implements gameLogicInterface {
     Random rand = new Random();//RNG for placing ships and for firing initially
     
     /**
-     * Makes a copy of the player's board
+     * AIEasy Constructor
      * @param board oject
-     * @return void
+     * @return AIEasy object
      */
     AIEasy(Board orig){
         this.BoardCopy = orig.getCopyBoard(orig);
@@ -77,7 +77,7 @@ public class AIEasy implements gameLogicInterface {
     }
 
     /**
-     * Marks a random coordinate on the board. The bread and butter of the easy mode
+     * Marks a random coordinate on the board.
      * @param size - int that holds size
      * @return boolean - if the random coordinate matches with a ship coordinate, returns true.
      *  Else, returns false
@@ -130,6 +130,7 @@ public class AIEasy implements gameLogicInterface {
     public int getRow(){
         return row;
     }
+
     /**
      * @param none
      * @return int - column position
