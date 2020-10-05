@@ -138,7 +138,6 @@ public class AIMedium implements gameLogicInterface{
         
         if(checkUp(row, col, 's')){
             return solveBoard(row - 1, col) == keepTrack(row - 1, col) == true;
-                
         } else if (checkDown(row, col, 's')){
             return solveBoard(row + 1, col) == keepTrack(row + 1, col) == true;
         } else if (checkRight(row, col, 's')){

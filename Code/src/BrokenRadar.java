@@ -18,7 +18,6 @@ public class BrokenRadar {
 
     public BrokenRadar(Board opponent){
         int temp = opponent.getNumberOfShips();
-        System.out.println(temp);
         this.numRows = opponent.getXSize();
         this.numCols = opponent.getYSize();
         this.numberOfShips = temp;
@@ -36,7 +35,6 @@ public class BrokenRadar {
             set = new String[i + 1];
             for(int j = 0; j < i + 1; j++){
                 set[j] = shipArray[i].getShipLoc(j);
-                //System.out.println("in original array" + set[j]);
             }
             
             int s = 0;
@@ -45,10 +43,8 @@ public class BrokenRadar {
             }
             
             for (int j = s; j < s + i + 1; j++) {
-                //System.out.println(j);
                 trueCombo.put(j, set[j - s]);
                 trueComboReverse.put(set[j - s], j);
-                //System.out.println("yung money " + trueComboReverse.get(set[j - s]));
             }
             
         }
@@ -129,32 +125,20 @@ public class BrokenRadar {
         
     }
 
-    public void runRadar(){
+    private String[] currentCor(){
+        String[] cor = new String[3];
+        for(int i = 0; i < 3; i++){
+            cor[i] = Coordinates.get(i);
+        }
+        return cor;
+    }
+
+    public String[] runRadar(){
+        String[] set;
         setBroken();
         printList();
+        set = currentCor();
         emptyList();
+        return set;
     }
-  
-
-
-  /*public void peekOpponent(Board opponent) {
-    int row = opponent.getXSize;
-    int col = opponent.getYSize;
-
-
-    //is this too nested?
-    for (int i = 0; i < row; i++) {
-      for (int j = 0; i < col; i++) {
-
-        if (!isHit(row, col) && isShip(row, col)) {
-          //is not already hit and is a ship
-          //row = conditionRow
-          //col = condiationCol
-        }
-      }
-    }
-    
-  }
-
-  }*/
 }

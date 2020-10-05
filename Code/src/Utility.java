@@ -45,8 +45,6 @@ public class Utility {
 
       System.out.println("Menu:");
       System.out.println("1) Attack!!");
-      //System.out.println("2) See your board");//do we need this if the board is printing more often
-      //System.out.println("2) Attack history");
       System.out.println("2) Use the Radar... but it might be wrong!");
       System.out.println("3) Forfeit the match");
       System.out.println("CHOICE:");

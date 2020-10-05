@@ -13,8 +13,6 @@ public class PlaceAIShips {
     PlaceShip placeIt) {
         int placementRow;
         int placementCol;
-        //playerBoard = new Board(9, 9, '~', numShips, "player1Board");
-        //playerWrapper = new BoardPrinterWrapper(playerBoard, 's', '~', true);
         placeIt = new PlaceShip(playerBoard);
         for (int i = 0; i < numShips; i++) {
             placementRow = rand.nextInt(playerBoard.getXSize());
