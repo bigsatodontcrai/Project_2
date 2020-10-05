@@ -78,6 +78,11 @@ public class Utility {
         System.out.println(message);
     }
 
+    /**
+     * Gets if a ship is horizontal
+     * @param next - String
+     * @return boolean, return true if horizontal, false otherwise
+     */
     public static boolean getHori(String next){
 
       boolean hori = false;

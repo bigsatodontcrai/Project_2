@@ -38,11 +38,11 @@ public class Board {
 	ship[] theShips;
 	int numberOfShips;
 	boolean[] hasSunk;
-	int sunkCounter; 
+	int sunkCounter;
 	String name;
 	int lastShipHit = 0;
 	private char[] coordinateLetters = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
-	
+
 
 	/**
 	 * Must have valid dimensions and board marker
@@ -196,13 +196,21 @@ public class Board {
 		return this.map[x][y];
 	}
 
+	/**
+	 * Sets the ship's coordinates
+	 * @param shipNum - int
+	 * @param row - int
+	 * @param col - int
+	 * @param location - int
+	 * @return void
+	 */
 	public void setShipCoordinates(int shipNum, int row, int col, int location) {
 		String Pair = "";
 		//String[] PairArray = new String[shipNum];
 		Pair = coordinateLetters[col] + Integer.toString(row);
 		theShips[shipNum].setShipCors(Pair, location);
 
-		
+
 	}
 	/**
 	 * Gets the number of ships that the user chose in the beginning of the game
@@ -217,7 +225,7 @@ public class Board {
 	 * Checks if the fleet of ships has sunk.
 	 * @param sp - ship[]
 	 * @param num - int
-	 * @return boolean 
+	 * @return boolean
 	 * returns true if all ships have hit, false otherwise
 	 */
 	private boolean fleetSunk(ship[] sp, int num){
@@ -226,7 +234,7 @@ public class Board {
 				return false;
 			}
 		}
-		System.out.println("The fleet has sunk! Good game."); 
+		System.out.println("The fleet has sunk! Good game.");
 		return true;
 	}
 
@@ -236,7 +244,7 @@ public class Board {
 	 * @return boolean
 	 */
 	public boolean fleetHasSunk(){
-		
+
 		return fleetSunk(theShips, numberOfShips);
 	}
 
@@ -270,7 +278,7 @@ public class Board {
 			if(theShips[i].shipHit(coordinates)){
 				lastShipHit = i + 1;
 				return true;
-			} 
+			}
 		}
 		return false;
 	}
