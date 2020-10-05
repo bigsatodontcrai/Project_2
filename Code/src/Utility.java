@@ -13,7 +13,7 @@ design decision. This way it'll be a bit more modular even internally.
  */
 public class Utility {
     public static Scanner consoleInput = new Scanner(System.in);
-   
+
     /**
     * Prints 50 newlines to the terminal to move any present text off screen.
     * @param none
@@ -45,7 +45,7 @@ public class Utility {
      * @post The menu will be displayed
      * @param none
      * @return void
-     */  
+     */
     public static void printMenu() {
 
       System.out.println("Menu:");
@@ -78,41 +78,8 @@ public class Utility {
         System.out.println(message);
     }
 
-    /**
-     * does this and chooseShipNum actually get used??
-     */
-    private void getInput(safelyGetCoordinates input) {
-        //input.getCoordinates();
-        chooseShipNum();
-        input.getCoordinates();
-    }
-
-    private void chooseShipNum() {
-      //boolean invalidInput = true;
-      System.out.println("Welcome to the game of Battleship!");
-      System.out.println("How many ships (per person) would you like to play with (1-5)?");
-      int numberOfShips = 0;
-      do {
-        numberOfShips = getUserInput.getUserNumber(consoleInput);
-      }while (validateShipNum(numberOfShips) == false);
-    }
-    
-    /**
-     * never gets used???????????
-     */
-    public void runUtility(safelyGetCoordinates input){
-      getInput(input);
-
-    }
-
-    /**
-     * Gets if the ship is supposed to be horizontal or vertical.
-     * Returns true if horizontal, false otherwise
-     * @param next - string indicating either H or V
-     * @return boolean - true if next is H, false if V
-     */
     public static boolean getHori(String next){
-      
+
       boolean hori = false;
       boolean notValid = true;
       while(notValid){
@@ -122,7 +89,7 @@ public class Utility {
         } else if (next.contains("V")) {
           hori = false;
           notValid = false;
-        } 
+        }
       }
       return hori;
     }
@@ -136,5 +103,5 @@ public class Utility {
       System.out.println("Choose between two player OR choose AI Difficulty:");
     }
 
-    
+
 }

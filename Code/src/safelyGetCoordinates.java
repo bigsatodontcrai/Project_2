@@ -179,36 +179,41 @@ public class safelyGetCoordinates implements gameLogicInterface{
      */
     public void markBoard(Board opponent, BoardPrinterWrapper opboard, BoardPrinterWrapper playerboard) {
         //Utility.clearTerminal();
-        opboard.print(false);
-        System.out.println("");
-        playerboard.print(false);
-        System.out.println("Choose where to attack your opponent's board: ");
-        getCoordinates();
-        if (opponent.getMarker(getRow() - 1, getCol()) == 's') {
-            //Utility.clearTerminal();
-            opponent.addMarker('x', getRow() - 1, getCol());
+        do{
             opboard.print(false);
+            System.out.println("");
             playerboard.print(false);
-            System.out.println("It's a hit!");
-            opponent.hitShipBool(input);
-            switch(opponent.getName()){
-                case "player1Board":
+            System.out.println("Choose where to attack your opponent's board: ");
+            getCoordinates();
+            if (opponent.getMarker(getRow() - 1, getCol()) == 's') {
+            //Utility.clearTerminal();
+                opponent.addMarker('x', getRow() - 1, getCol());
+                opboard.print(false);
+                playerboard.print(false);
+                System.out.println("It's a hit!");
+                opponent.hitShipBool(input);
+                switch(opponent.getName()){
+                    case "player1Board":
                     broken2.removeByCoordinate(input);
                     break;
-                case "player2Board":
+                    case "player2Board":
                     broken1.removeByCoordinate(input);
                     break;
-                default:
+                    default:
                     broken1.removeByCoordinate(input);
-            }
+                }
             
-        } else {
+            } else if (opponent.getMarker(getRow() - 1, getCol()) == 'o'){
+                System.out.println("There is already a miss here. Try again.");
+            } else {
             //Utility.clearTerminal();
-            opponent.addMarker('o', getRow() - 1, getCol());
-            opboard.print(true);
-            playerboard.print(true);
-            System.out.println("It's a miss!");
-        }
+                opponent.addMarker('o', getRow() - 1, getCol());
+                opboard.print(true);
+                playerboard.print(true);
+                System.out.println("It's a miss!");
+            }
+        } while(opponent.getMarker(getRow() - 1, getCol()) == 'o');
+       
 
     }
 

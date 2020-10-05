@@ -221,17 +221,13 @@ public class Board {
 	 * returns true if all ships have hit, false otherwise
 	 */
 	private boolean fleetSunk(ship[] sp, int num){
-		if(num > 0){
-			if(sp[num - 1].isSink() == true){
-				return fleetSunk(sp, num - 1);
-			} else if (sp[num - 1].isSink() == false && num > 0){
-			return false;
-			} else {
-				return true;
+		for(int i = 0; i < num; i++){
+			if(sp[i].isSink() == false){
+				return false;
 			}
-		} else {
-			return true;
 		}
+		System.out.println("The fleet has sunk! Good game."); 
+		return true;
 	}
 
 	/**
@@ -240,6 +236,7 @@ public class Board {
 	 * @return boolean
 	 */
 	public boolean fleetHasSunk(){
+		
 		return fleetSunk(theShips, numberOfShips);
 	}
 
