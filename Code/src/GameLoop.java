@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameLoop {
@@ -28,9 +29,9 @@ public class GameLoop {
         System.out.println("Type 1 for player, 2 for AI");
         int AI = 0;
         boolean isNotAI = false;
+        int boardSize = 9;
 
         boolean loop1 = true;
-        boolean loop2 = true;
         
         while(loop1) 
         	{
@@ -54,6 +55,33 @@ public class GameLoop {
         		}
         	}
         }
+        int yesNo = 2;
+        boolean runLoop = true;
+        while(runLoop){
+            System.out.println("Would you like custom boards? yes is 1 no is 2");
+            yesNo = consoleInput.nextInt();
+            if(yesNo == 1){
+                System.out.println("What size board would you like above the size 9?");
+                try{
+                    while(boardSize <= 9)
+                    {
+                        boardSize = consoleInput.nextInt();
+                        runLoop = false;
+                    }
+                    break;
+                } catch (InputMismatchException ime){
+                    ime.getMessage();
+                    runLoop = true;
+                }
+            } else if (yesNo == 2){
+                boardSize = 9;
+                runLoop = false;
+                break;
+            } else {
+                System.out.println("It's a yes or no question! 1 or 2?!");
+                runLoop = true;
+            }
+        }
 
 
         String yourChoice = "";
@@ -71,7 +99,7 @@ public class GameLoop {
         int num2 = 0;
         System.out.println("Player 1 place ships:");
         num1 = player1UI.runInterface(player1Board, consoleInput);
-        player1Board = new Board(9, 9, '~', num1, "player1Board");
+        player1Board = new Board(boardSize, boardSize, '~', num1, "player1Board");
         player1Printer = new BoardPrinterWrapper(player1Board, 's', '~', true);
         player1place = new PlaceShip(player1Board);
         getCoor.placeShipLoop(player1Board, player1Printer, player1place);
@@ -83,11 +111,11 @@ public class GameLoop {
             player2place = new PlaceShip(player2Board);
             getCoor.placeShipLoop(player2Board, player2Printer, player2place);
             getCoor.setRadar(player1Board, player2Board);
-            player2Board = new Board(9, 9, '~', num2, "player2Board");
+            player2Board = new Board(boardSize, boardSize, '~', num2, "player2Board");
             player2Printer = new BoardPrinterWrapper(player2Board, 's', '~', true);
         } else {
             num2 = PlaceAIShips.determineShips();
-            player2Board = new Board(9, 9, '~', num2, "player2Board");
+            player2Board = new Board(boardSize, boardSize, '~', num2, "player2Board");
             player2Printer = new BoardPrinterWrapper(player2Board, 's', '~', true);
             switch(yourChoice){
                 case "easy":
