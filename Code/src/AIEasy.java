@@ -49,15 +49,6 @@ public class AIEasy implements gameLogicInterface {
 
 
     /**
-     * Marks a ship coordinate with an 'x' to indicate a hit on the copy of the player's board
-     * @param row - int that holds number of rows, col - int that holds number of columns
-     * @return void
-     */
-    private void markHit(int row, int col){
-        BoardCopy.addMarker('x', row, col);
-    }
-
-    /**
      * Marks a ship coordinate with an 'x' to indicate a hit on the original player's board
      * @param row - int that holds number of rows, col - int that holds number of columns
      * @return void
