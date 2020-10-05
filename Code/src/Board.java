@@ -54,6 +54,7 @@ public class Board {
 	int sunkCounter; 
 	String name;
 	int lastShipHit = 0;
+	private char[] coordinateLetters = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
 	
 
 	/**
@@ -154,6 +155,10 @@ public class Board {
 			}
 		}
 		return copy;
+	}
+
+	public void setMapByCopy(Board copy) {
+		this.map = copy.getCopyMap();
 	}
 
 	/**
@@ -278,9 +283,13 @@ public class Board {
 		return this.map[x][y];
 	}
 
-	public void setShipCoordinates(int shipNum, int row, int col) {
-		String Pair = Integer.toString(row) + Integer.toString(col);
-		theShips[shipNum].setShipCors(Pair);
+	public void setShipCoordinates(int shipNum, int row, int col, int location) {
+		String Pair = "";
+		//String[] PairArray = new String[shipNum];
+		Pair = coordinateLetters[col] + Integer.toString(row);
+		theShips[shipNum].setShipCors(Pair, location);
+
+		
 	}
 
 	public int getNumberOfShips() {
@@ -288,16 +297,17 @@ public class Board {
 	}
 
 	private boolean fleetSunk(ship[] sp, int num){
-		if(sp[num - 1].isSink() == true && num > 0){
-			return fleetSunk(sp, num - 1);
-		} else if (sp[num - 1].isSink() == false && num > 0){
-			return false;
-		} else {
-			return true;
+		for(int i = 0; i < num; i++){
+			if(sp[i].isSink() == false){
+				return false;
+			}
 		}
+		System.out.println(this.name.substring(0, this.name.length() - 5) + "'s fleet has sunk! Good game."); 
+		return true;
 	}
 
 	public boolean fleetHasSunk(){
+		
 		return fleetSunk(theShips, numberOfShips);
 	}
 
@@ -309,8 +319,8 @@ public class Board {
 		return name;
 	}
 
-	public boolean hitShipBool(int row, int col){
-		String coordinates = Integer.toString(row) + Integer.toString(col);
+	public boolean hitShipBool(String coordinates){
+		//String coordinates = Integer.toString(row) + Integer.toString(col);
 		for(int i = 0; i < numberOfShips; i++){
 			if(theShips[i].shipHit(coordinates)){
 				lastShipHit = i + 1;
@@ -326,5 +336,9 @@ public class Board {
 
 	public int getlastShipHit(){
 		return lastShipHit;
+	}
+
+	public ship[] getShipArray(){
+		return theShips;
 	}
 }

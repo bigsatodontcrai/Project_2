@@ -7,13 +7,13 @@ public class ship {
     private int size;
     private boolean[] shipArray;
     private HashMap<String, Integer> pair = new HashMap<String, Integer>();
-    
+    private HashMap<Integer, String> reversePair = new HashMap<Integer, String>();
     private int counter;
 
     public ship(int size) {
-        this.size = size;
-        shipArray = new boolean[5];
-        for(int i = 0; i < size; i++) {
+        this.size = size + 1;
+        shipArray = new boolean[this.size];
+        for(int i = 0; i < this.size; i++) {
             shipArray[i] = false;
         }
         this.counter = 0;
@@ -24,9 +24,13 @@ public class ship {
         if(pair.containsKey(coordinates)) {
             if(shipArray[pair.get(coordinates)] == false) {
                 shipArray[pair.get(coordinates)] = true;
+                System.out.println("Ship of size " + size + " was hit at Location number " + pair.get(coordinates));
                 counter++;
+                if(counter == size){
+                    System.out.println("Ship of size " + size + " has sunk!");
+                }
             }
-            return true;//returns true which the board can use to print that the ship has been hit
+            return true;
         } else {
             return false;
         }
@@ -59,9 +63,14 @@ public class ship {
         return shipSunkRecursive(shipArray, size);
     }
 
-    public void setShipCors(String coordinates) {
-        for(int i = 0; i < size; i++) {
-            pair.put(coordinates, i);
-        }
+    public void setShipCors(String coordinates, int location) {
+        
+        pair.put(coordinates, location);
+        reversePair.put(location, coordinates);
+        
+    }
+
+    public String getShipLoc(int location){
+        return reversePair.get(location);
     }
 }
