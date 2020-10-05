@@ -302,7 +302,7 @@ public class Board {
 				return false;
 			}
 		}
-		System.out.println("The fleet has sunk! Good game."); 
+		System.out.println(this.name.substring(0, this.name.length() - 5) + "'s fleet has sunk! Good game."); 
 		return true;
 	}
 

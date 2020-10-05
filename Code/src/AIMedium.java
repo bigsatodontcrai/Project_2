@@ -21,7 +21,6 @@ public class AIMedium implements gameLogicInterface{
 
     private void markHit(int row, int col){
         BoardCopy.addMarker('x', row, col);
-        //BoardOrig.addMarker('x', row, col);
         
     }
 
@@ -31,9 +30,6 @@ public class AIMedium implements gameLogicInterface{
     }
     private void markMiss(int row, int col) {
         BoardOrig.addMarker('o', row, col);
-    }
-    private void unMark(int row, int col){
-        BoardCopy.addMarker('o', row, col);
     }
 
     private void unMarkCopy(int row, int col) {
@@ -45,8 +41,6 @@ public class AIMedium implements gameLogicInterface{
     } 
     
     private boolean markRandom(int size) {
-        //row = rand.nextInt(size);
-        //col = rand.nextInt(size);
         do {
             row = rand.nextInt(size);
             col = rand.nextInt(size);
@@ -119,49 +113,23 @@ public class AIMedium implements gameLogicInterface{
         }
     }
 
-    private boolean keepTrack(int row, int col)
-{
-    boolean a = false;
-    boolean b = false;
-    boolean c = false;
-    boolean d = false;
-    if(checkDown(row, col, 's'))
-    {
-        a = ((BoardCopy.getMarker(row, col) == 'x' && BoardOrig.getMarker(row + 1, col) == 's'));
-        
-    }
-    
-    else
-    {
-        a = false;
-    }
-    if(checkRight(row, col, 's'))
-    {
-        b = ((BoardCopy.getMarker(row, col) == 'x' && BoardOrig.getMarker(row, col + 1) == 's'));
-        
-    }
-    else
-    {
-        b = false;
-    }
-    if(checkUp(row, col, 's'))
-    {
-        c = ((BoardCopy.getMarker(row, col) == 'x' && BoardOrig.getMarker(row - 1, col) == 's'));
-        
-    }
-    else 
-    {
-        c = false;
-    }
-    if(checkLeft(row, col, 's'))
-    {
-        d = ((BoardCopy.getMarker(row, col) == 'x' && BoardOrig.getMarker(row, col - 1) == 's'));
-        
-    }
-    else
-    {
-        d = false;
-    }
+    private boolean keepTrack(int row, int col) {
+        boolean a = false;
+        boolean b = false;
+        boolean c = false;
+        boolean d = false;
+        if(checkDown(row, col, 's')) {
+            a = ((BoardCopy.getMarker(row, col) == 'x' && BoardOrig.getMarker(row + 1, col) == 's'));
+        } else {  a = false; } 
+        if(checkRight(row, col, 's')) {
+            b = ((BoardCopy.getMarker(row, col) == 'x' && BoardOrig.getMarker(row, col + 1) == 's'));
+        } else { b = false; } 
+        if(checkUp(row, col, 's')){
+            c = ((BoardCopy.getMarker(row, col) == 'x' && BoardOrig.getMarker(row - 1, col) == 's'));
+        } else  { c = false; }
+        if(checkLeft(row, col, 's')) {
+            d = ((BoardCopy.getMarker(row, col) == 'x' && BoardOrig.getMarker(row, col - 1) == 's'));
+        } else { d = false;}
     
     return (a||b||c||d);
 }

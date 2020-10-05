@@ -59,7 +59,11 @@ public class safelyGetCoordinates implements gameLogicInterface{
             System.out.println("Please input coordinates in the format: A1.");
             rowValid = false;
         }
-        return true;
+        if (colValid && rowValid){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String getCoordinates() {
@@ -104,6 +108,9 @@ public class safelyGetCoordinates implements gameLogicInterface{
                         markBoard(other, player1Printer, player2Printer);
                 } 
                 Utility.EnterToContinue();
+                if(playerBoard.fleetHasSunk()){
+                    return false;
+                }
                 return true;
             case 2:
                 switch (playerBoard.getName()) {

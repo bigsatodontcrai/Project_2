@@ -27,11 +27,12 @@ public class AIHard implements gameLogicInterface {
     }
 
     public void markBoard(Board opponent, BoardPrinterWrapper opboard, BoardPrinterWrapper playerboard) {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < opponent.getXSize(); i++) {
+            for (int j = 0; j < opponent.getYSize(); j++) {
                 if (BoardOrig.getMarker(i, j) == 's') {
                     boom(i, j);
-                    i = j = 9;
+                    i = opponent.getXSize();
+                    j = opponent.getYSize();
                     break;
                 }
             }
