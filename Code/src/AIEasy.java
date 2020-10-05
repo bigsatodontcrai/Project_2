@@ -40,7 +40,7 @@ public class AIEasy implements gameLogicInterface {
               if(!playerBoard.fleetHasSunk())
               {
                 markBoard(other, player2Printer, player1Printer);
-                return true
+                return true;
               }else
               {
                 return false;

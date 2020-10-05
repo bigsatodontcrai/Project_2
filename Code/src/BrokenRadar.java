@@ -212,7 +212,7 @@ public class BrokenRadar {
     /**
      * activates radar
      * @param none
-     * @return String array, returns the current coordinate of strings
+     * @return String[] array, returns the current coordinate of strings
      */
     public String[] runRadar(){
         String[] set;
