@@ -4,31 +4,18 @@
 /**
 * <h1> Battleship </h1>
 * <p>
-* This is the program's main entry point.
-* </p>
-* <b>
-* Author: Sean Cunningham
-* </b>
-* <p>
-* KUID: 2935773
-* </p>
-* <p>
-* Email: s096c429@ku.edu
-* </p>
-* @author Sean Cunningham
-* @KUID: 2935773
-* @Email: s096c429@ku.edu
+* This is the program's main entry point. Creates a Run object and calls letsPlay().
 * </p>
 */
 public class Battleship {
     /**
-        * This the the program's main
+        * This the the program's main function. Staring point of the program
         */
     public static void main(String[] args) {
         
         //Executive gameHandler = new Executive();
         //gameHandler.run();
-        Run gameHandler = new Run();
-        gameHandler.letsPlay();
+        Run gameHandler = new Run();//creates Run object
+        gameHandler.letsPlay(); //calls letsPlay() function
     }
 }

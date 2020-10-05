@@ -1,15 +1,12 @@
 /**
 * <h1> CollisionHandler </h1>
-* <p> <b> tsopeter@ku.edu </b> </p>
-* <p>
-*		This is the collision handler file. When given char marker, it
+* <p>This is the collision handler file. When given char marker, it
 *		checks the given Board Object at the position (x,y).
 *		Then returns true if there is a collision, or
 *		false when there is no collision.
 *		There are no protections from OutOfBounds. Please
 *		implement protections on your own code when using
-*		CollisionHandler.java
-* </p>
+*		CollisionHandler.java</p>
 * <p> <b> Updates: </b> </p>
 * <ul>
 *	<li> Update:	20200908 </li>
@@ -42,22 +39,14 @@ public class CollisionHandler {
 
 	/**
 	* This static method handles the collision checking
-	* <p> <b> Preconditions: </b> </p>
-	* <p>
-	*	Must have valid Board and marker
-	* </p>
-	* <p> <b> Postconditions: </b> </p>
-	* <p>
-	* Checks the board against the marker and returns when true when detected
-	* </p>
-	* @param g Board
-	*	@param marker Char
-	* @param x Int
-	* @param y Int
-	*	@return Boolean
+	* @Pre Must have valid Board and marker
+	* @Post Checks the board against the marker and returns when true when detected
+	* @param g - Board
+	* @param marker - char
+	* @param x - int
+	* @param y - int
+	* @return Boolean
 	* @throws IllegalArgumentException iae
-	* </p>
-	*
 	*/
 	public static boolean check(Board g, char marker, int x, int y){
 		if(x < 0 || y < 0 || x >= g.getXSize() || y >= g.getYSize()){

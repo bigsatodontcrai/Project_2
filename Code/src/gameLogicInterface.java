@@ -1,3 +1,7 @@
+/**
+ * <h1>gameLogicInterface</h1>
+ * Interface for the game logic, how we run the game throughout the classes.
+ */
 public interface gameLogicInterface {
     public String getCoordinates();
 

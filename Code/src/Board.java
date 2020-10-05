@@ -1,13 +1,9 @@
 /**
  * <h1>Board</h1>
  * <p>
- * <b> tsopeter@ku.edu </b>
- * </p>
- * <p>
  * The Board.java file handles the char[][] map object. It allows to fill in the
  * board with char board_marker and allows to add to board, get from board, and
  * get the dimensions of the board.
- *
  * It has two copy functions, It has getCopyBoard(), this passes an instance of
  * a Board Object that has the same value as this object It has getCopyMap(),
  * this passes an instance of a char[][] Objec that has the same value as
@@ -21,15 +17,6 @@
  * on your own code when using Board.java.</li>
  * </ul>
  * <p>
- * <b> Thank you. </b>
- * </p>
- * <p>
- *
- * @author tsopeter
- * @version 20200913
- * @since 09-05-2020
- * @since 09-08-2020
- * @since 09-13-2020
  *        </p>
  *        <p>
  *        <b> References: </b>
@@ -59,23 +46,12 @@ public class Board {
 
 	/**
 	 * Must have valid dimensions and board marker
-	 * <p>
-	 * <b> Preconditions: </b>
-	 * </p>
-	 * <p>
-	 * Must have strictly positive x and y
-	 * </p>
-	 * <p>
-	 * <b> Postconditions: </b>
-	 * </p>
-	 * <p>
-	 * Makes a map with x and y dimensions
-	 * </p>
-	 *
-	 * @param x              Int
-	 * @param y              Int
-	 * @param t_board_marker Char
-	 * @param numberOfShips Int
+	 * @Preconditions Must have strictly positive x and y
+	 * @Postconditions Makes a map with x and y dimensions
+	 * @param x - Int
+	 * @param y - Int
+	 * @param t_board_marker - Char
+	 * @param numberOfShips - Int
 	 */
 	public Board(int x, int y, char t_board_marker, int numberOfShips, String theName) {
 		this.xSize = 0;
@@ -111,19 +87,9 @@ public class Board {
 
 	/**
 	 * This returns this map object
-	 * <p>
-	 * <b> Preconditions: </b>
-	 * </p>
-	 * <p>
-	 * Must have been constructed
-	 * </p>
-	 * <p>
-	 * <b> Postconditions: </b>
-	 * </p>
-	 * <p>
-	 * Returns this.map Object
-	 * </p>
-	 *
+	 * @Pre Must have been constructed
+	 * @Post Returns this.map Object
+	 * @param none
 	 * @return char[][]
 	 */
 	public char[][] getBoard() {
@@ -132,19 +98,9 @@ public class Board {
 
 	/**
 	 * This returns a copy of the Map
-	 * <p>
-	 * <b> Preconditions: </b>
-	 * </p>
-	 * <p>
-	 * Must have been constructed
-	 * </p>
-	 * <p>
-	 * <b> Postconditions: </b>
-	 * </p>
-	 * <p>
-	 * Returns a copy of this.map with char[][] copy
-	 * </p>
-	 *
+	 * @Pre Must have been constructed
+	 * @Post Returns a copy of this.map with char[][] copy
+	 * @param none
 	 * @return char[][]
 	 */
 	public char[][] getCopyMap() {
@@ -157,26 +113,21 @@ public class Board {
 		return copy;
 	}
 
+	/**
+	 * Sets map equal to a copy
+	 * @param copy - Board
+	 * @return void
+	 */
 	public void setMapByCopy(Board copy) {
 		this.map = copy.getCopyMap();
 	}
 
 	/**
 	 * This returns a copy of the Board
-	 * <p>
-	 * <b> Preconditions: </b>
-	 * </p>
-	 * <p>
-	 * Must have been constructed
-	 * </p>
-	 * <p>
-	 * <b> Postconditions: </b>
-	 * </p>
-	 * <p>
-	 * Returns a copy of this object with Board
-	 * </p>
-	 *
-	 * @return Board
+	 * @Pre Must have been constructed
+	 * @Post Returns a copy of this object with Board
+	 * @param copy - Board
+	 * @return Board object
 	 */
 	public Board getCopyBoard(Board copy) {
 		copy = new Board(this.xSize, this.ySize, this.board_marker, this.numberOfShips, this.name);
@@ -190,6 +141,10 @@ public class Board {
 
 
 	//copy constructor
+	/**
+	 * Board copy constructor
+	 * @param c - Board
+	 */
 	Board(Board c) {
 		getCopyBoard(c);
 	}
@@ -197,19 +152,9 @@ public class Board {
 
 	/**
 	 * This returns the X size of the array
-	 * <p>
-	 * <b> Preconditions: </b>
-	 * </p>
-	 * <p>
-	 * Must have been constructed
-	 * </p>
-	 * <p>
-	 * <b> Postconditions: </b>
-	 * </p>
-	 * <p>
-	 * Returns the x dimension
-	 * </p>
-	 *
+	 * @Pre Must have been constructed
+	 * @Post Returns the x dimension
+	 * @param none
 	 * @return int
 	 */
 	public int getXSize() {
@@ -218,19 +163,9 @@ public class Board {
 
 	/**
 	 * This returns the Y size of the array
-	 * <p>
-	 * <b> Preconditions: </b>
-	 * </p>
-	 * <p>
-	 * Must have been constructed
-	 * </p>
-	 * <p>
-	 * <b> Postconditions: </b>
-	 * </p>
-	 * <p>
-	 * Returns the y dimension
-	 * </p>
-	 *
+	 * @Pre: Must have been constructed
+	 * @Post Returns the y dimension
+	 * @param none
 	 * @return int
 	 */
 	public int getYSize() {
@@ -239,22 +174,11 @@ public class Board {
 
 	/**
 	 * This method adds to the Map
-	 * <p>
-	 * <b> Preconditions: </b>
-	 * </p>
-	 * <p>
-	 * Must have been constructed Must have valid address
-	 * </p>
-	 * <p>
-	 * <b> Postconditions: </b>
-	 * </p>
-	 * <p>
-	 * Adds a character to the map Object
-	 * </p>
-	 *
-	 * @param marker Char
-	 * @param x      Int
-	 * @param y      Int
+	 * @Pre Must have been constructed Must have valid address
+	 * @Post Adds a character to the map Object
+	 * @param marker - Char
+	 * @param x - Int
+	 * @param y - Int
 	 */
 	public void addMarker(char marker, int x, int y) {
 		this.map[x][y] = marker;
@@ -262,21 +186,10 @@ public class Board {
 
 	/**
 	 * This method gets a character from Map
-	 * <p>
-	 * <b> Preconditions: </b>
-	 * </p>
-	 * <p>
-	 * Must have been constructed Must have valid address
-	 * </p>
-	 * <p>
-	 * <b> Postconditions: </b>
-	 * </p>
-	 * <p>
-	 * Returns a character from a (x,y) position of map
-	 * </p>
-	 *
-	 * @param x Int
-	 * @param y Int
+	 * @Pre Must have been constructed Must have valid address
+	 * @Post Returns a character from a (x,y) position of map
+	 * @param x - Int
+	 * @param y - Int
 	 * @return char
 	 */
 	public char getMarker(int x, int y) {
@@ -291,11 +204,22 @@ public class Board {
 
 		
 	}
-
+	/**
+	 * Gets the number of ships that the user chose in the beginning of the game
+	 * @param none
+	 * @return int
+	 */
 	public int getNumberOfShips() {
 		return numberOfShips;
 	}
 
+	/**
+	 * Checks if the fleet of ships has sunk.
+	 * @param sp - ship[]
+	 * @param num - int
+	 * @return boolean 
+	 * returns true if all ships have hit, false otherwise
+	 */
 	private boolean fleetSunk(ship[] sp, int num){
 		if(num > 0){
 			if(sp[num - 1].isSink() == true){
@@ -310,18 +234,39 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Returns whether or not the fleet of ships has sunk. Based off of what is returned from the function fleetSunk.
+	 * @param none
+	 * @return boolean
+	 */
 	public boolean fleetHasSunk(){
 		return fleetSunk(theShips, numberOfShips);
 	}
 
+	/**
+	 * Returns if current object is equal to playerBoard object
+	 * @param playerBoard - Board
+	 * @return boolean
+	 */
 	public boolean isEq(Board playerBoard) {
 		return this.name == playerBoard.name;
 	}
 
+	/**
+	 * Returns object name
+	 * @param none
+	 * @return string
+	 */
 	public String getName(){
 		return name;
 	}
 
+	/**
+	 * Checks if a ship has been hit at given coordinates
+	 * @param coordinates
+	 * @return boolean
+	 * <p>Returns true if has been hit, false otherwise</p>
+	 */
 	public boolean hitShipBool(String coordinates){
 		//String coordinates = Integer.toString(row) + Integer.toString(col);
 		for(int i = 0; i < numberOfShips; i++){
@@ -333,14 +278,28 @@ public class Board {
 		return false;
 	}
 
+	/**
+	 * Sets the variable lastShipHit equal to the int passed in
+	 * @param num - int
+	 * @return void
+	 */
 	public void setlastShipHit(int num){
 		lastShipHit = num;
 	}
 
+	/**
+	 * Gets the variable lastShipHit and returns its' value
+	 * @param none
+	 * @return void
+	 */
 	public int getlastShipHit(){
 		return lastShipHit;
 	}
-
+	/**
+	 * Gets the ship array theShips and returns the array
+	 * @param none
+	 * @return ship[]
+	 */
 	public ship[] getShipArray(){
 		return theShips;
 	}

@@ -1,33 +1,17 @@
 /**
-* <h1> BoardPrinterWrapper </h1>
-* <b> tsopeter@ku.edu </b>
-* <p>
-*      The BoardPrinterWrapper is a class that handles the
-*      BoardPrinter class. It makes it easier to print the boards.
-* </p>
+* <h1>BoardPrinterWrapper</h1>
+* <p>The BoardPrinterWrapper is a class that handles the
+*     BoardPrinter class. It makes it easier to print the boards.</p>
 * <p>
 *  <p> <b> Update: </b> </p>
 * <p>        20200910
 *            This class no longer supports multiplexing of the boards,
 *            in accordance to the specifications and requriements.
 *            It also no longer is implemeted from BoardInterface class.
-*            The file has been renamed to BoardPrinterWrapper.
-* </p>
+*            The file has been renamed to BoardPrinterWrapper.</p>
 * <p> <b> Requried Files: </b> </p>
 * <ul>
 *  <li> Board.java </li>
-* </ul>
-* <p>
-* @author tsopeter
-* @version 20200910
-*	@since					09-08-2020
-*	@since					09-10-2020
-* @since          09-13-2020
-* </p>
-* <p> <b> References: </b> </p>
-* <ul>
-* <li> https://www.tutorialspoint.com/java/java_documentation.html </li>
-* <li> https://docs.oracle.com/javase/8/docs/technotes/tools/winodws/javadoc.html </li>
 * </ul>
 */
 public class BoardPrinterWrapper{
@@ -44,18 +28,12 @@ public class BoardPrinterWrapper{
 
   /**
   * This is the constructor, it creates a new board with offsets
-  * <p> <b> Preconditions: </b> </p>
-  * <p>
-  *	Must have valid Board Object and characters and a indexed boolean
-  * </p>
-  * <p> <b> Postconditions: </b> </p>
-  * <p>
-  * Creates a board with new offsets for output
-  * </p>
-  * @param t_g Bpard
-  * @param t_ship_marker char
-  * @param t_board_marker char
-  * @param t_indexed Boolean
+  * @Pre Must have valid Board Object and characters and a indexed boolean
+  * @Post Creates a board with new offsets for output
+  * @param t_g - Board
+  * @param t_ship_marker - char
+  * @param t_board_marker - char
+  * @param t_indexed - Boolean
   */
   public BoardPrinterWrapper(Board t_g, char t_ship_marker, char t_board_marker, boolean t_indexed){
     this.xOffset = 1;
@@ -72,14 +50,10 @@ public class BoardPrinterWrapper{
 
   /**
   * This is a private method. It updates the offset Board with the current board
-  * <p> <b> Preconditions: </b> </p>
-  * <p>
-  *	Must have been constructed
-  * </p>
-  * <p> <b> Postconditions: </b> </p>
-  * <p>
-  * Updates offset board with new g board
-  * </p>
+  * @Pre Must have been constructed
+  * @Post Updates offset board with new g board
+  * @param none
+  * @return void
   */
   private void addBoard(){
       int xInput = 0;
@@ -115,17 +89,11 @@ public class BoardPrinterWrapper{
 
   /**
   * This adds element to the board. It does not add elements to the given board
-  * <p> <b> Preconditions: </b> </p>
-  * <p>
-  *	Must have character and valid address
-  * </p>
-  * <p> <b> Postconditions: </b> </p>
-  * <p>
-  * Alters the offset board, temp.
-  * </p>
-  * @param marker char
-  * @param x Int
-  * @param y Int
+  * @Pre Must have character and valid address
+  * @Post Alters the offset board, temp.
+  * @param marker - char
+  * @param x - int
+  * @param y - int
   */
   public void addElement(char marker, int x, int y){
     this.ui.addMarker(marker, x, y);
@@ -133,17 +101,11 @@ public class BoardPrinterWrapper{
 
   /**
   * This retunrs a element of the board at a given address
-  * <p> <b> Preconditions: </b> </p>
-  * <p>
-  *	Must have valid address
-  * </p>
-  * <p> <b> Postconditions: </b> </p>
-  * <p>
-  * Gets an element from the offset board
-  * </p>
-  * @param x Int
-  * @param y Int
-  * @return char element
+  * @Pre Must have valid address
+  * @Post Gets an element from the offset board
+  * @param x - int
+  * @param y - int
+  * @return char
   */
   public char getElement(int x, int y){
     return this.ui.getMarker(x, y);
@@ -151,14 +113,9 @@ public class BoardPrinterWrapper{
 
   /**
   * This returns the offsetBoard
-  * <p> <b> Preconditions: </b> </p>
-  * <p>
-  *	Must have been constructed
-  * </p>
-  * <p> <b> Postconditions: </b> </p>
-  * <p>
-  * Returns a copy of the board by a new Board Object
-  * </p>
+  * @Pre Must have been constructed
+  * @Post Returns a copy of the board by a new Board Object
+  * @param copy - Board
   * @return Board offsetBoard
   */
   public Board getCopyBoard(Board copy){
@@ -173,15 +130,10 @@ public class BoardPrinterWrapper{
 
   /**
   * This uses the print function to print a normal board or attack board
-  * <p> <b> Preconditions: </b> </p>
-  * <p>
-  *	Must have valid boolean character and constructed
-  * </p>
-  * <p> <b> Postconditions: </b> </p>
-  * <p>
-  * Prints the board, this is the output.
-  * </p>
-  * @param t_hidden boolean
+  * @Pre Must have valid boolean character and constructed
+  * @Post Prints the board, this is the output.
+  * @param t_hidden - boolean
+  * @return void
   */
   public void print(boolean t_hidden){
     this.addBoard();

@@ -1,5 +1,8 @@
 import java.util.Scanner;
-
+/**
+ * <h1>GameLoop</h1>
+ * <p>Class that sets up the game, and runs the main loop that runs the game</p>
+ */
 public class GameLoop {
     private Board player1Board;
     private BoardPrinterWrapper player1Printer;
@@ -13,13 +16,22 @@ public class GameLoop {
     private PlaceShip player1place;
     private PlaceShip player2place; 
     
-    
+    /**
+     * GameLoop constructor, initalizes player1UI, player2UI, and getCoor
+     * @param none
+     */
     public GameLoop() {
         this.player1UI = new getUserInput(1);
         this.player2UI = new getUserInput(2);
         this.getCoor = new safelyGetCoordinates();
     }
-
+    
+    /**
+     * Sets up the game, asks player for 2 person or AI game, and number of ships
+     * Sets up the variables for the game to run based off of the users answers
+     * @param none
+     * @return gameLogicInterface
+     */
     public gameLogicInterface Init(){
         Utility.printStart();
         AIEasy Easy;
@@ -82,7 +94,12 @@ public class GameLoop {
     } 
 
     
-
+    /**
+     * Plays the game, calling game running functions in a loop until there is a winner
+     * @param getCoorPlayer -player1 coordinates
+     * @param getCoorOpponent -opponent coordinates, either player2 or AI
+     * @return void
+     */
     public void Play(gameLogicInterface getCoorPlayer, gameLogicInterface getCoorOpponent){
         do
         {
@@ -104,6 +121,12 @@ public class GameLoop {
         }
     }
 
+    /**
+     * Calls Play()
+     * @param getCoor
+     * @param Init()
+     * @return void
+     */
     public void Game() {
         Play(getCoor, Init());
     }

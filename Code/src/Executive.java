@@ -2,28 +2,16 @@ import java.util.Scanner;
 import java.lang.IllegalArgumentException;
 
 /**
- *
- * <h1>Executive</h1>
+ *<h1>Project 2 Note</h1>
+ *<p>This class was the primary class used in Project1. For project 2 this team refactored this code.
+ *This class is now useless and is never called. 
+ *Everything this class once did has now been moved and organized into other classes for organization and optimization
+ *We have kept it here for refrence.</p>
+ * <h2>Executive</h2>
  * <p>
  * The Executive class handles the main game logic. This class handles the menu
  * interactions, keeping track of the state of the game, and determining a
  * winner.
- * </p>
- *
- *
- *
- * <b> Authors: Sean Cunningham, Samuel Gilchrist </b>
- * <p>
- * Sean's KUID: 2935773
- * </p>
- * <p>
- * Sean's Email: s096c429@ku.edu
- * </p>
- * <p>
- * Sam's KUID: 2886577
- * </p>
- * <p>
- * Sam's Email: samofgil@ku.edu
  * </p>
  *
  * @author Sean Cunningham <div>
