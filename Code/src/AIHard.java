@@ -41,11 +41,7 @@ public class AIHard implements gameLogicInterface {
             return false;
         }
     }
-    /**
-     * marks both player and AI board when there someone's ship is hit
-     * @param opponent - Board object of AI board, opboard - BoardPrinterWrapper object of AI board,
-     *  playerBoard - BoardPrinterWrapper object of player's board
-     */
+    
     public void markBoard(Board opponent, BoardPrinterWrapper opboard, BoardPrinterWrapper playerboard) {
         for (int i = 0; i < opponent.getXSize(); i++) {
             for (int j = 0; j < opponent.getYSize(); j++) {
@@ -60,18 +56,12 @@ public class AIHard implements gameLogicInterface {
         opboard.print(true);
         playerboard.print(true);
     }
-    /**
-     * @param none
-     * @return int - row position
-     */
+    
     public int getRow() {
         return row;
     }
 
-    /**
-     * @param none
-     * @return int - column position
-     */
+    
     public int getCol() {
         return col;
     }
