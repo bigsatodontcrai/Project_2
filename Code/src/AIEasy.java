@@ -8,7 +8,6 @@ randomly at the players board.
 public class AIEasy implements gameLogicInterface {
     private int row;
     private int col;
-    private Board BoardCopy;//this is going to keep track what's been visited
     private Board BoardOrig;//the actual board pointer
     Random rand = new Random();//RNG for placing ships and for firing initially
     
@@ -18,7 +17,6 @@ public class AIEasy implements gameLogicInterface {
      * @return AIEasy object
      */
     AIEasy(Board orig){
-        this.BoardCopy = orig.getCopyBoard(orig);
         this.BoardOrig = orig;
     }
     /**
@@ -49,6 +47,7 @@ public class AIEasy implements gameLogicInterface {
               }
     }
 
+
     /**
      * Marks a ship coordinate with an 'x' to indicate a hit on the copy of the player's board
      * @param row - int that holds number of rows, col - int that holds number of columns
@@ -63,6 +62,7 @@ public class AIEasy implements gameLogicInterface {
      * @param row - int that holds number of rows, col - int that holds number of columns
      * @return void
      */
+
     private void markOrig(int row, int col){
         BoardOrig.addMarker('x', row, col);
     }
@@ -83,9 +83,11 @@ public class AIEasy implements gameLogicInterface {
      *  Else, returns false
      */
     private boolean markRandom(int size) {
-        row = rand.nextInt(size);
-        col = rand.nextInt(size);
-        return isHit(row, col, 's');
+      do {
+          row = rand.nextInt(size);
+          col = rand.nextInt(size);
+      }while(isHit(row, col, 'o') && isHit(row, col, 'x'));
+      return isHit(row, col, 's');
     }
 
     /**
@@ -95,7 +97,7 @@ public class AIEasy implements gameLogicInterface {
      * @return boolean - if the coordinate and letter match, returns true. Else, return false
      */
     private boolean isHit(int row, int col, char letter) {
-        if(BoardCopy.getMarker(row, col) == letter){
+        if(BoardOrig.getMarker(row, col) == letter){
             return true;
         } else {
             return false;
@@ -108,18 +110,17 @@ public class AIEasy implements gameLogicInterface {
      *  playerBoard - BoardPrinterWrapper object of player's board
      */
     public void markBoard(Board opponent, BoardPrinterWrapper opboard, BoardPrinterWrapper playerboard){
-      if(!isHit(row, col, 'x'))
-      {
-        if(markRandom(opponent.getXSize()))
+      if(markRandom(opponent.getXSize()))
         {
-            markHit(row, col);
+          if(!isHit(row, col, 'x') && !isHit(row, col, 'o'))
+          {
             markOrig(row, col);
+          }
         }else
         {
             markMiss(row, col);
         }
-      }
-      opbaord.print(true);
+      opboard.print(true);
       playerboard.print(true);
     }
 

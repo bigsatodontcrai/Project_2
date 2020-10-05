@@ -45,8 +45,6 @@ public class Utility {
 
       System.out.println("Menu:");
       System.out.println("1) Attack!!");
-      //System.out.println("2) See your board");//do we need this if the board is printing more often
-      //System.out.println("2) Attack history");
       System.out.println("2) Use the Radar... but it might be wrong!");
       System.out.println("3) Forfeit the match");
       System.out.println("CHOICE:");
@@ -61,27 +59,6 @@ public class Utility {
     public static void errorMessage(IllegalArgumentException iae, String message) {
         System.out.println(iae.getMessage());
         System.out.println(message);
-    }
-
-
-    private void getInput(safelyGetCoordinates input) {
-        //input.getCoordinates();
-        chooseShipNum();
-        input.getCoordinates();
-    }
-
-    private void chooseShipNum() {
-      //boolean invalidInput = true;
-      System.out.println("Welcome to the game of Battleship!");
-      System.out.println("How many ships (per person) would you like to play with (1-5)?");
-      int numberOfShips = 0;
-      do {
-        numberOfShips = getUserInput.getUserNumber(consoleInput);
-      }while (validateShipNum(numberOfShips) == false);
-    }
-    public void runUtility(safelyGetCoordinates input){
-      getInput(input);
-
     }
 
     public static boolean getHori(String next){

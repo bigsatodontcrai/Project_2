@@ -17,6 +17,7 @@ public class safelyGetCoordinates implements gameLogicInterface{
     private int rowboat;
     private BrokenRadar broken1;
     private BrokenRadar broken2;
+    private String[] current = new String[3];
 
     /**
      * safelyGetCoordinates constructor
@@ -26,6 +27,9 @@ public class safelyGetCoordinates implements gameLogicInterface{
     safelyGetCoordinates(){
         this.column = 0;
         this.row = 0;
+        for(int i = 0; i < 3; i++){
+            current[i] = "N/A";
+        }
     }
 
     /**
@@ -85,7 +89,11 @@ public class safelyGetCoordinates implements gameLogicInterface{
             System.out.println("Please input coordinates in the format: A1.");
             rowValid = false;
         }
-        return true;
+        if (colValid && rowValid){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -143,17 +151,20 @@ public class safelyGetCoordinates implements gameLogicInterface{
                         markBoard(other, player1Printer, player2Printer);
                 } 
                 Utility.EnterToContinue();
+                if(playerBoard.fleetHasSunk()){
+                    return false;
+                }
                 return true;
             case 2:
                 switch (playerBoard.getName()) {
                     case "player1Board":
-                        broken1.runRadar();
+                        current = broken1.runRadar();
                         break;
                     case "player2Board":
-                        broken2.runRadar();
+                        current = broken2.runRadar();
                         break;
                     default: 
-                        broken1.runRadar();
+                        current = broken1.runRadar();
                 } 
                 Utility.EnterToContinue();
                 return true;
@@ -169,37 +180,47 @@ public class safelyGetCoordinates implements gameLogicInterface{
      *  playerBoard - BoardPrinterWrapper object of player's board
      */
     public void markBoard(Board opponent, BoardPrinterWrapper opboard, BoardPrinterWrapper playerboard) {
-        //Utility.clearTerminal();
-        opboard.print(false);
-        System.out.println("");
-        playerboard.print(false);
-        System.out.println("Choose where to attack your opponent's board: ");
-        getCoordinates();
-        if (opponent.getMarker(getRow() - 1, getCol()) == 's') {
-            //Utility.clearTerminal();
-            opponent.addMarker('x', getRow() - 1, getCol());
-            opboard.print(false);
+        Utility.clearTerminal();
+        boolean valid = true;
+        do{
+            opboard.print(true);
+            System.out.println("");
             playerboard.print(false);
-            System.out.println("It's a hit!");
-            opponent.hitShipBool(input);
-            switch(opponent.getName()){
-                case "player1Board":
+            System.out.println("Radar coordinates from last radar usage: " + current[0] + " " + current[1] + " " + current[2]);
+            System.out.println("Choose where to attack your opponent's board: ");
+            getCoordinates();
+            if (opponent.getMarker(getRow() - 1, getCol()) == 's') {
+                valid = true;
+                Utility.clearTerminal();
+                opponent.addMarker('x', getRow() - 1, getCol());
+                opboard.print(true);
+                playerboard.print(false);
+                System.out.println("It's a hit!");
+                opponent.hitShipBool(input);
+                switch(opponent.getName()){
+                    case "player1Board":
                     broken2.removeByCoordinate(input);
                     break;
-                case "player2Board":
+                    case "player2Board":
                     broken1.removeByCoordinate(input);
                     break;
-                default:
+                    default:
                     broken1.removeByCoordinate(input);
-            }
+                }
             
-        } else {
-            //Utility.clearTerminal();
-            opponent.addMarker('o', getRow() - 1, getCol());
-            opboard.print(true);
-            playerboard.print(true);
-            System.out.println("It's a miss!");
-        }
+            } else if (opponent.getMarker(getRow() - 1, getCol()) == 'o'){
+                System.out.println("There is already a miss here. Try again.");
+                valid = false;
+            } else {
+                valid = true;
+                Utility.clearTerminal();
+                opponent.addMarker('o', getRow() - 1, getCol());
+                opboard.print(true);
+                playerboard.print(true);
+                System.out.println("It's a miss!");
+            }
+        } while(!valid);
+       
 
     }
 
@@ -216,7 +237,9 @@ public class safelyGetCoordinates implements gameLogicInterface{
             System.out.println("Horizontal or vertical? Enter H or V.");
             String next = Utility.consoleInput.next();
             boolean hori = Utility.getHori(next);
-            placeIt.place(getRow() - 1, getCol(), i + 1, hori);  
+            if(!placeIt.place(getRow() - 1, getCol(), i + 1, hori)){
+                i--;
+            }  
 
         }
         

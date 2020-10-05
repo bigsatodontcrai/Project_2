@@ -29,7 +29,6 @@ public class BrokenRadar {
      */
     public BrokenRadar(Board opponent){
         int temp = opponent.getNumberOfShips();
-        System.out.println(temp);
         this.numRows = opponent.getXSize();
         this.numCols = opponent.getYSize();
         this.numberOfShips = temp;
@@ -59,7 +58,6 @@ public class BrokenRadar {
             set = new String[i + 1];
             for(int j = 0; j < i + 1; j++){
                 set[j] = shipArray[i].getShipLoc(j);
-                //System.out.println("in original array" + set[j]);
             }
             
             int s = 0;
@@ -68,10 +66,8 @@ public class BrokenRadar {
             }
             
             for (int j = s; j < s + i + 1; j++) {
-                //System.out.println(j);
                 trueCombo.put(j, set[j - s]);
                 trueComboReverse.put(set[j - s], j);
-                //System.out.println("yung money " + trueComboReverse.get(set[j - s]));
             }
             
         }
@@ -197,16 +193,35 @@ public class BrokenRadar {
         System.out.println("Their locations: " + Coordinates.get(0) + " " + Coordinates.get(1) + " " + Coordinates.get(2));
         
     }
+  
+    /**
+     * converts the current coordinates to an array
+     * @param none
+     * @return String array, returns the current coordinate of strings
+     */
+  
+    private String[] currentCor(){
+        String[] cor = new String[3];
+        for(int i = 0; i < 3; i++){
+            cor[i] = Coordinates.get(i);
+        }
+        return cor;
+    }
+
 
     /**
      * activates radar
      * @param none
-     * @return void
+     * @return String array, returns the current coordinate of strings
      */
-    public void runRadar(){
+    public String[] runRadar(){
+        String[] set;
+
         setBroken();
         printList();
+        set = currentCor();
         emptyList();
+        return set;
     }
-  
+
 }

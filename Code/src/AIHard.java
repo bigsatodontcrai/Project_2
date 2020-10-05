@@ -4,8 +4,17 @@
  */
 
 public class AIHard implements gameLogicInterface {
-    private int row;
-    private int col;
+    private int row = 0;
+    private int col = 0;
+    private Board BoardOrig;
+
+    AIHard(Board orig) {
+        this.BoardOrig = orig;
+    }
+
+    private void boom(int row, int col) {
+        BoardOrig.addMarker('x', row, col);
+    }
 
     /**
      * @param none
@@ -24,7 +33,13 @@ public class AIHard implements gameLogicInterface {
      */
     public boolean Loop(Board playerBoard, Board other, getUserInput UI, BoardPrinterWrapper player1Printer,
             BoardPrinterWrapper player2Printer) {
-                return true;
+
+        if (!playerBoard.fleetHasSunk()) {
+            markBoard(other, player2Printer, player1Printer);
+            return true;
+        } else {
+            return false;
+        }
     }
     /**
      * marks both player and AI board when there someone's ship is hit
@@ -32,7 +47,18 @@ public class AIHard implements gameLogicInterface {
      *  playerBoard - BoardPrinterWrapper object of player's board
      */
     public void markBoard(Board opponent, BoardPrinterWrapper opboard, BoardPrinterWrapper playerboard) {
-
+        for (int i = 0; i < opponent.getXSize(); i++) {
+            for (int j = 0; j < opponent.getYSize(); j++) {
+                if (BoardOrig.getMarker(i, j) == 's') {
+                    boom(i, j);
+                    i = opponent.getXSize();
+                    j = opponent.getYSize();
+                    break;
+                }
+            }
+        }
+        opboard.print(true);
+        playerboard.print(true);
     }
     /**
      * @param none
@@ -57,6 +83,7 @@ public class AIHard implements gameLogicInterface {
      */
     public void placeShipLoop(Board playerBoard, BoardPrinterWrapper playerWrapper, PlaceShip placeIt) {
         PlaceAIShips.placeAI(playerBoard, playerWrapper, placeIt);
+
     }
-    
+
 }
