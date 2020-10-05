@@ -134,14 +134,12 @@ public class GameLoop {
         {
             System.out.println("Player 1 turn");
             if(!getCoorPlayer.Loop(player1Board, player2Board, player1UI, player1Printer, player2Printer)){
-                break;//for forfeit
+                playerWon[1] = true;//for forfeit
             }
             System.out.println("Player 2 turn");
             if (!getCoorOpponent.Loop(player2Board, player1Board, player1UI, player1Printer, player2Printer)) {
-                break;
+                playerWon[0] = true;
             }
-            playerWon[0] = player2Board.fleetHasSunk();
-            playerWon[1] = player1Board.fleetHasSunk();
         } while (!playerWon[0] && !playerWon[1]);
         if (playerWon[0]) {
             System.out.println("Congratulations! Player 1 has won.");
