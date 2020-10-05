@@ -1,14 +1,32 @@
 import java.util.Random;
 
+/**
+ * <h1>PlaceAIShips</h1>
+ *The PlaceAIShips class is a helper class that places the ships of the AI player
+ */
 public class PlaceAIShips {
     public static int numShips = 1;
     private static Random rand = new Random();
+    
+    /**
+     * picks AI ships
+     * @param none
+     * @return int - number of ships AI will use
+     */
     public static int determineShips(){
         do {
             numShips = rand.nextInt(6);
         } while (numShips == 0);
         return numShips;
     }
+    
+    /**
+     * places ships on board for AI player
+     * @param playerBoard - Board object of AI
+     * @param playerWrapper - BoardPrinterWrapper object of AI 
+     * @param placeIt - PlaceShip object to place AI ships on its board
+     * @return void
+     */
     public static void placeAI(Board playerBoard, BoardPrinterWrapper playerWrapper,
     PlaceShip placeIt) {
         int placementRow;
