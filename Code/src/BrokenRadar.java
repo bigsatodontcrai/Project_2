@@ -3,6 +3,12 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Collections;
 
+/**
+ * Note for others: The Broken Radar is a custome feature that allows the user to see some
+ * coordinates of the opponent's board marked by ships. However, since it's broken not all
+ * provided coordinates are true. One coordinate is random.
+ */
+
 public class BrokenRadar {
     private char[] coordinateLetters = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
     private ship[] shipArray;
@@ -16,6 +22,11 @@ public class BrokenRadar {
     private HashMap<Integer, String> trueCombo = new HashMap<Integer, String>();
     private HashMap<String, Integer> trueComboReverse = new HashMap<String, Integer>();
 
+    /**
+     * BrokenRadar constructor
+     * @param board object
+     * @return BrokenRadar object
+     */
     public BrokenRadar(Board opponent){
         int temp = opponent.getNumberOfShips();
         this.numRows = opponent.getXSize();
@@ -25,10 +36,22 @@ public class BrokenRadar {
         this.size = temp * (temp + 1) / 2;//1 + 2 + 3... is the number of locations with ships
     } 
 
+    /**
+     * coverts index of the array the coordinates are stored in to a letter that makes sense
+     * to a Battleship board
+     * @param row - int that holds number of rows, col - int that holds number of columns
+     * @return string - letter that correlates to the index in the array where integer
+     * coordinate is stored
+     */
     public String convertCoor(int row, int col){
         return coordinateLetters[col] + Integer.toString(row);
     }
 
+    /**
+     * Locates coordinates of opponents ships
+     * @param none
+     * @return void
+     */
     public void fillMap(){
         String[] set;
         for(int i = 0; i < numberOfShips; i++){
@@ -50,18 +73,33 @@ public class BrokenRadar {
         }
     }//N^2 complexity but better than a brute force search of the board, technically from n(n+1)/2 complexity which is 
 
+    /**
+     * removes true coordinates from list
+     * @param int - location
+     * @return void
+     */
     private void removeFromList(int location){
         String coor = trueCombo.get(location);
         trueCombo.remove(location, coor);
         used.put(location, coor);
     }
 
+    /**
+     * calls removeFromList to remove coordiante from list
+     * @param string - coordinate with a letter
+     * @return void
+     */
     public void removeByCoordinate(String coordinate){
         int location = trueComboReverse.get(coordinate);
         trueComboReverse.remove(coordinate, location);
         removeFromList(location);
     }
 
+    /**
+     * provides true coordiantes of opponents ships
+     * @param none
+     * @return void
+     */
     private void getRealCoordinate(){
         int randomLoc = rand.nextInt(size);
         boolean check = true;
@@ -76,6 +114,11 @@ public class BrokenRadar {
         } while(check);
     }
 
+    /**
+     * provides random coordinate that might throw off the player
+     * @param none
+     * @return void
+     */
     private void getRandomCoordinate(){
         boolean check = true;
         int randomRow = 0;
@@ -96,6 +139,11 @@ public class BrokenRadar {
 
     }
 
+    /**
+     * collects coordinates to be displayed to player
+     * @param none
+     * @return boolean - returns true after calling other methods
+     */
     private boolean findCoordinates(){
         
         getRealCoordinate();
@@ -106,25 +154,52 @@ public class BrokenRadar {
         
     }
 
+    /**
+     * shuffles the array that stores the coordinates to be provided to no patern can
+     * be detected after multiple uses
+     * @param none
+     * @return void
+     */
     private void shuffleList(){
         Collections.shuffle(Coordinates);
     }
 
+    /**
+     * clears list of coordinates
+     * @param none
+     * @return void
+     */
     private void emptyList(){
         Coordinates.clear();
     }
 
+    /**
+     * implements broken aspect of the radar
+     * @param none
+     * @return void
+     */
     private void setBroken(){
         findCoordinates();
         shuffleList();
     }
 
+    /**
+     * displays coordinates to player
+     * @param none
+     * @return void
+     */
     private void printList(){
         
         System.out.println("Their locations: " + Coordinates.get(0) + " " + Coordinates.get(1) + " " + Coordinates.get(2));
         
     }
-
+  
+    /**
+     * converts the current coordinates to an array
+     * @param none
+     * @return String array, returns the current coordinate of strings
+     */
+  
     private String[] currentCor(){
         String[] cor = new String[3];
         for(int i = 0; i < 3; i++){
@@ -133,12 +208,20 @@ public class BrokenRadar {
         return cor;
     }
 
+
+    /**
+     * activates radar
+     * @param none
+     * @return String array, returns the current coordinate of strings
+     */
     public String[] runRadar(){
         String[] set;
+
         setBroken();
         printList();
         set = currentCor();
         emptyList();
         return set;
     }
+
 }

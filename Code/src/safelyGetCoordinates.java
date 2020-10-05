@@ -1,5 +1,9 @@
 import java.util.InputMismatchException;
 
+/**
+ * Note for others: The safelyGetCoordinates class will get coordinates on the 
+ */
+
 public class safelyGetCoordinates implements gameLogicInterface{
     private char[] coordinateLetters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' };
     private boolean invalidInput = true;
@@ -15,6 +19,11 @@ public class safelyGetCoordinates implements gameLogicInterface{
     private BrokenRadar broken2;
     private String[] current = new String[3];
 
+    /**
+     * safelyGetCoordinates constructor
+     * @param none
+     * @return safelyGetCoordinates object
+     */
     safelyGetCoordinates(){
         this.column = 0;
         this.row = 0;
@@ -23,14 +32,26 @@ public class safelyGetCoordinates implements gameLogicInterface{
         }
     }
 
+    /**
+     * @param none
+     * @return int - row position
+     */
     public int getRow() {
         return rowboat;
     }
 
+     /**
+     * @param none
+     * @return int - column position
+     */
     public int getCol() {
         return column;
     }
 
+    /**
+     * converts letter to an int
+     * @param col - char that holds the letter to the Battleship game coordinates
+     */
     private int letterToInt(char col) {
         col = Character.toLowerCase(col);
         for (int i = 0; i < coordinateLetters.length; i++) {
@@ -41,6 +62,11 @@ public class safelyGetCoordinates implements gameLogicInterface{
         throw new IllegalArgumentException(col + " is out of bounds.");
     }
 
+    /**
+     * converts letter coordinate that is use provided to integer coordinates for background use
+     * @param none
+     * @return boolean - if the provided coordinate is invalid, returns false. Else, returns true
+     */
     private boolean convertCoordinates() {
         try {
             column = letterToInt(col);
@@ -70,6 +96,11 @@ public class safelyGetCoordinates implements gameLogicInterface{
         }
     }
 
+    /**
+     * obtains coordinates from user
+     * @param none
+     * @return string - letter from A1 format coordinates
+     */
     public String getCoordinates() {
         do {
             
@@ -89,6 +120,14 @@ public class safelyGetCoordinates implements gameLogicInterface{
         return (output);
     }
 
+     /**
+     * Calls markBoard to loop through the steps of the game if either player hasn't lost all
+     * their ships
+     * @param playerBoard - board of player, other - board of opponent, UI - getUserInput, 
+     *  playerPrinter - BoardPrinterWrapper object of players board,
+     *  player2Printer - Board PrinterWrapper object of AI board
+     * @return boolean - returns true if either player still has ships, returns false when someone loses.
+     */
     public boolean Loop(Board playerBoard, Board other, getUserInput UI, BoardPrinterWrapper player1Printer, 
         BoardPrinterWrapper player2Printer) {
         Utility.printMenu();
@@ -135,6 +174,11 @@ public class safelyGetCoordinates implements gameLogicInterface{
 
     }
 
+    /**
+     * marks both player and AI board when there someone's ship is hit
+     * @param opponent - Board object of AI board, opboard - BoardPrinterWrapper object of AI board,
+     *  playerBoard - BoardPrinterWrapper object of player's board
+     */
     public void markBoard(Board opponent, BoardPrinterWrapper opboard, BoardPrinterWrapper playerboard) {
         Utility.clearTerminal();
         boolean valid = true;
@@ -180,6 +224,11 @@ public class safelyGetCoordinates implements gameLogicInterface{
 
     }
 
+     /**
+     * allows player to choose where to place ships on board
+     * @param playerBoard - Board object, playerWrapper - BoardPrinterWrapper object, PlaceIt - PlaceShip object
+     * @return void
+     */
     public void placeShipLoop(Board playerBoard, BoardPrinterWrapper playerWrapper, PlaceShip placeIt) {
         for (int i = 0; i < playerBoard.getNumberOfShips(); i++) {
             playerWrapper.print(false);
@@ -196,6 +245,11 @@ public class safelyGetCoordinates implements gameLogicInterface{
         
     }
 
+    /**
+     * radar feature with humans
+     * @param p1board - board object for player 1, p2board - board object for player 2
+     * @return void
+     */
     public void setRadar(Board p1board, Board p2board){
         broken1 = new BrokenRadar(p2board);
         broken2 = new BrokenRadar(p1board);
@@ -203,6 +257,11 @@ public class safelyGetCoordinates implements gameLogicInterface{
         broken2.fillMap();
     }
 
+    /**
+     * radar feature with AI
+     * @param opponent - board object 
+     * @return void
+     */
     public void setRadar(Board opponent){
         broken1 = new BrokenRadar(opponent);
         broken1.fillMap();
