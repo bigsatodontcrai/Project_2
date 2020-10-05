@@ -63,27 +63,6 @@ public class Utility {
         System.out.println(message);
     }
 
-
-    private void getInput(safelyGetCoordinates input) {
-        //input.getCoordinates();
-        chooseShipNum();
-        input.getCoordinates();
-    }
-
-    private void chooseShipNum() {
-      //boolean invalidInput = true;
-      System.out.println("Welcome to the game of Battleship!");
-      System.out.println("How many ships (per person) would you like to play with (1-5)?");
-      int numberOfShips = 0;
-      do {
-        numberOfShips = getUserInput.getUserNumber(consoleInput);
-      }while (validateShipNum(numberOfShips) == false);
-    }
-    public void runUtility(safelyGetCoordinates input){
-      getInput(input);
-
-    }
-
     public static boolean getHori(String next){
       
       boolean hori = false;

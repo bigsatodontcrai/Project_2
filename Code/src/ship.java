@@ -24,6 +24,7 @@ public class ship {
         if(pair.containsKey(coordinates)) {
             if(shipArray[pair.get(coordinates)] == false) {
                 shipArray[pair.get(coordinates)] = true;
+                System.out.println("Ship of size " + size + " was hit at Location number " + pair.get(coordinates));
                 counter++;
             }
             return true;//returns true which the board can use to print that the ship has been hit
@@ -48,6 +49,7 @@ public class ship {
     }
 
     private boolean shipSunk() {
+        System.out.println("Ship of size " + size + " has sunk!");
         return counter == size;
     }
 

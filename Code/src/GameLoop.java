@@ -24,10 +24,38 @@ public class GameLoop {
         Utility.printStart();
         AIEasy Easy;
         AIMedium Medium;
-        AIHard Hard = new AIHard();
+        AIHard Hard;
         System.out.println("Type 1 for player, 2 for AI");
-        int AI = consoleInput.nextInt();
+        int AI = 0;
         boolean isNotAI = false;
+
+        boolean loop1 = true;
+        boolean loop2 = true;
+        
+        while(loop1) 
+        	{
+        	
+        	if (!consoleInput.hasNextInt() || !consoleInput.hasNext())
+        	{
+        		System.out.println("Um.. 1 or 2.. its not that hard");
+        		consoleInput.nextLine();
+        	}
+        	else
+        	{
+        		AI = consoleInput.nextInt();
+        		
+        		if(AI <= 2 && AI >=1)
+        		{
+        			loop1 = false;
+        		}
+        		else {
+        			System.out.println("you are stupid please enter 1 or 2");
+        			consoleInput.nextLine();
+        		}
+        	}
+        }
+
+
         String yourChoice = "";
         switch(AI){
             case 1:
@@ -73,6 +101,7 @@ public class GameLoop {
                 getCoor.setRadar(player2Board);
                 return Medium;
                 case "hard":
+                Hard = new AIHard(player1Board);
                 Hard.placeShipLoop(player2Board, player2Printer, player2place);
                 getCoor.setRadar(player2Board);
                 return Hard;
